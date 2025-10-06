@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/auth/entities/auth.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'messages' })
 export class Messages {
@@ -8,6 +9,10 @@ export class Messages {
   @Column('text')
   message: string;
 
-  @Column('text')
-  user: string;
+  @ManyToOne(
+    () => User,
+    (user) => user.messages,
+    {eager:true}
+  )
+  user: User;
 }

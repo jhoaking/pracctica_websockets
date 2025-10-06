@@ -1,3 +1,4 @@
+import { Messages } from 'src/messages/entity/message.entity';
 import {
   Column,
   CreateDateColumn,
@@ -5,7 +6,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
 
 @Entity({ name: 'Users' })
 export class User {
@@ -30,5 +30,6 @@ export class User {
   @Column('text', { array: true, default: ['user'] })
   roles: string[];
 
-  
+  @OneToMany(() => Messages, (message) => message.user)
+  messages: Messages[];
 }
